@@ -1,0 +1,10 @@
+[Unit]
+Description=germqtt gerrit event mqtt publisher daemon
+ 
+[Service]
+User=germqtt
+Group=germqtt
+ExecStart=/usr/bin/germqtt --foreground /etc/germqtt/germqtt.conf
+ 
+[Install]
+WantedBy=multi-user.target
