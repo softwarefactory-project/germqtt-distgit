@@ -1,6 +1,6 @@
 Name:		germqtt
 Version:	0.1.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Publish a gerrit event stream on MQTT
 
 License:	Apache
@@ -35,11 +35,10 @@ rm -rf %{pypi_name}.egg-info
 rm -rf requirements.txt test-requirements.txt
 
 %build
-%py2_build
-
+%{__python2} setup.py build
 
 %install
-%py2_install
+%{__python2} setup.py install --skip-build --root %{buildroot}
 install -p -D -m 644 %{SOURCE1} %{buildroot}/%{_unitdir}/%{name}.service
 mkdir -p %{buildroot}/%{_sysconfdir}/
 install -p -D -m 644 etc/germqtt.conf %{buildroot}/%{_sysconfdir}/%{name}/germqtt.conf
@@ -72,6 +71,9 @@ exit 0
 %{_unitdir}/*
 
 %changelog
+* Thu Mar 2 2017 Matthieu Huin <mhuin@redhat.com> - 0.1.0-3
+- Do not use EPEL macros
+
 * Mon Feb 27 2017 Matthieu Huin <mhuin@redhat.com> - 0.1.0-2
 - Add service file, conf installation, cleanup scripts
 
